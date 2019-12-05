@@ -15,13 +15,13 @@ First download the pre-trained checkpoints from [here](https://pan.baidu.com/s/1
 python evaluate.py
 ```
 ### Train ###
-Please download the [LOLdataset](https://daooshee.github.io/BMVC2018website/). Save training pairs of LOL dataset under './LOLdataset/our485/' and evaling pairs under './LOLdataset/eval15/'. First training the decompositon net, then training the illumination adjustment net, finally training the restoration net. For example, just run
+Please download the [LOLdataset](https://daooshee.github.io/BMVC2018website/). Save training pairs of LOL dataset under './LOLdataset/our485/' and save evaluating pairs under './LOLdataset/eval15/'. For training, just run
 ```shell
 python decomposition_net_train.py
 python adjustment_net_train.py
 python reflectance_resoration_net_train.py
 ```
-You can also evaluate the LOLdataset, just run
+You can also evaluate on the LOLdataset, just run
 ```shell
 python evaluate_LOLdataset.py
 ```
