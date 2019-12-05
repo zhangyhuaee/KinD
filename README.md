@@ -28,10 +28,10 @@ python evalate_LOLdataset.py
 
 ### Citation ###
 @inproceedings{zhang2019kindling,
-	title="Kindling the Darkness: A Practical Low-light Image Enhancer.",
-	author="Yonghua {Zhang} and Jiawan {Zhang} and Xiaojie {Guo}",
-	booktitle="Proceedings of the 27th ACM International Conference on Multimedia  - MM '19",
-	pages="1632--1640",
-	url="https://academic.microsoft.com/paper/2981718299",
-	year="2019"
+  title="Kindling the Darkness: A Practical Low-light Image Enhancer.",
+  author="Yonghua {Zhang} and Jiawan {Zhang} and Xiaojie {Guo}",
+  booktitle="Proceedings of the 27th ACM International Conference on Multimedia  - MM '19",
+  pages="1632--1640",
+  url="https://academic.microsoft.com/paper/2981718299",
+  year="2019"
 }
