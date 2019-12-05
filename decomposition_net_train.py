@@ -16,8 +16,8 @@ sess = tf.Session()
 input_low = tf.placeholder(tf.float32, [None, None, None, 3], name='input_low')
 input_high = tf.placeholder(tf.float32, [None, None, None, 3], name='input_high')
 
-[R_low, I_low] = DecomNet_simple_final(input_low)
-[R_high, I_high] = DecomNet_simple_final(input_high)
+[R_low, I_low] = DecomNet_simple(input_low)
+[R_high, I_high] = DecomNet_simple(input_high)
 
 I_low_3 = tf.concat([I_low, I_low, I_low], axis=3)
 I_high_3 = tf.concat([I_high, I_high, I_high], axis=3)
