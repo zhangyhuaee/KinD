@@ -1,5 +1,5 @@
 # KinD
-This is a Tensorflow implement of KinD
+This is a Tensorflow implementation of KinD
 
 Kindling the Darkness: a Practical Low-light Image Enhancer. In ACMMM2019<br>
 Yonghua Zhang, Jiawan Zhang, Xiaojie Guo
