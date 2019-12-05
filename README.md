@@ -23,7 +23,7 @@ Please download the [LOLdataset](https://daooshee.github.io/BMVC2018website/). S
 ```shell
 python decomposition_net_train.py
 python adjustment_net_train.py
-python reflectance_resoration_net_train.py
+python reflectance_restoration_net_train.py
 ```
 You can also evaluate on the LOLdataset, just run
 ```shell
