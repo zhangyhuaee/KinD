@@ -3,7 +3,6 @@ from __future__ import print_function
 import os
 import time
 import random
-#from skimage import color,filters
 from PIL import Image
 import tensorflow as tf
 import numpy as np
