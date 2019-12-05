@@ -164,9 +164,9 @@ for epoch in range(start_epoch, epoch):
             input_low_eval = np.expand_dims(eval_low_data[idx], axis=0)
             result_1, result_2 = sess.run([output_R_low, output_I_low], feed_dict={input_low: input_low_eval})
             save_images(os.path.join(sample_dir, 'low_%d_%d.png' % ( idx + 1, epoch + 1)), result_1, result_2)
-        for idx in range(len(eval_low_data)):
-            input_low_eval = np.expand_dims(eval_high_data[idx], axis=0)
-            result_11, result_22 = sess.run([output_R_high, output_I_high], feed_dict={input_high: input_low_eval})
+        for idx in range(len(eval_high_data)):
+            input_high_eval = np.expand_dims(eval_high_data[idx], axis=0)
+            result_11, result_22 = sess.run([output_R_high, output_I_high], feed_dict={input_high: input_high_eval})
             save_images(os.path.join(sample_dir, 'high_%d_%d.png' % ( idx + 1, epoch + 1)), result_11, result_22)
          
     saver.save(sess, checkpoint_dir + 'model.ckpt')
