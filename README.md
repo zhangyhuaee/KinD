@@ -18,13 +18,14 @@ python evalate.py
 Please download the [LOLdataset](https://daooshee.github.io/BMVC2018website/). Save training pairs of LOL dataset under './LOLdataset/our485/' and evaling pairs under './LOLdataset/eval15/'. First training the decompositon net, then training the illumination adjustment net, finally training the restoration net. For example, just run
 ```shell
 python decomposition_net_train.py
-python Adjustment_net_train.py
-python Restoration_net_train.py
+python adjustment_net_train.py
+python reflectance_resoration_net_train.py
 ```
 You can also evalate the LOLdataset, just run
 ```shell
 python evalate_LOLdataset.py
 ```
+Our code partly refers to the [code](https://github.com/weichen582/RetinexNet).
 
 ### Citation ###
 ```
