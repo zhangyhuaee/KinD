@@ -3,7 +3,6 @@ from __future__ import print_function
 import os
 import time
 import random
-#from skimage import color
 from PIL import Image
 import tensorflow as tf
 import numpy as np
@@ -23,7 +22,7 @@ input_decom = tf.placeholder(tf.float32, [None, None, None, 3], name='input_deco
 input_low_r = tf.placeholder(tf.float32, [None, None, None, 3], name='input_low_r')
 input_low_i = tf.placeholder(tf.float32, [None, None, None, 1], name='input_low_i')
 input_high_r = tf.placeholder(tf.float32, [None, None, None, 3], name='input_high_r')
-#input_high_i = tf.placeholder(tf.float32, [None, None, None, 1], name='input_high_i')
+
 [R_decom, I_decom] = DecomNet_simple(input_decom)
 #the output of decomposition network
 decom_output_R = R_decom
@@ -79,7 +78,7 @@ print("[*] Initialize model successfully...")
 
 ### load data
 ### Based on the decomposition net, we first get the decomposed reflectance maps 
-### and illumination maps, then train the adjust net.
+### and illumination maps, then train the restoration net.
 ###train_data
 train_low_data = []
 train_high_data = []
@@ -113,7 +112,6 @@ else:
 decomposed_low_r_data_480 = []
 decomposed_low_i_data_480 = []
 decomposed_high_r_data_480 = []
-#decomposed_high_i_data_480 = []
 for idx in range(len(train_low_data)):
     input_low = np.expand_dims(train_low_data[idx], axis=0)
     RR, II = sess.run([decom_output_R, decom_output_I], feed_dict={input_decom: input_low})
@@ -125,11 +123,11 @@ for idx in range(len(train_low_data)):
 for idx in range(len(train_high_data)):
     input_high = np.expand_dims(train_high_data[idx], axis=0)
     RR2, II2 = sess.run([decom_output_R, decom_output_I], feed_dict={input_decom: input_high})
+    ### To improve the constrast, we slightly change the decom_r_high by using decom_r_high**1.2
     RR02 = np.squeeze(RR2**1.2)
-    II02 = np.squeeze(II2)
-    print(idx, RR02.shape, II02.shape)
+    print(idx, RR02.shape)
     decomposed_high_r_data_480.append(RR02)
-    #decomposed_high_i_data_480.append(II02)
+
 decomposed_eval_low_r_data = []
 decomposed_eval_low_i_data = []
 for idx in range(len(eval_low_data)):
@@ -204,7 +202,6 @@ for epoch in range(start_epoch, epoch):
         batch_input_low_i = np.zeros((batch_size, patch_size, patch_size, 1), dtype="float32")
 
         batch_input_high_r = np.zeros((batch_size, patch_size, patch_size, 3), dtype="float32")
-        
 
         for patch_id in range(batch_size):
             h, w, _ = train_restoration_low_r_data[image_id].shape
@@ -215,11 +212,8 @@ for epoch in range(start_epoch, epoch):
             batch_input_low_r[patch_id, :, :, :] = data_augmentation(train_restoration_low_r_data[image_id][x : x+patch_size, y : y+patch_size, :] , rand_mode)#+ np.random.normal(0, 0.1, (patch_size,patch_size,3))  , rand_mode)
             batch_input_low_i[patch_id, :, :, :] = data_augmentation(i_low_expand[x : x+patch_size, y : y+patch_size, :] , rand_mode)#+ np.random.normal(0, 0.1, (patch_size,patch_size,3))  , rand_mode)
 
-            #i_high_expand = np.expand_dims(train_restoration_high_i_data[image_id], axis = 2)
             batch_input_high_r[patch_id, :, :, :] = data_augmentation(train_restoration_high_r_data[image_id][x : x+patch_size, y : y+patch_size, :], rand_mode)
-            #batch_input_high_i[patch_id, :, :, :] = data_augmentation(i_high_expand[x : x+patch_size, y : y+patch_size, :] , rand_mode)#+ np.random.normal(0, 0.1, (patch_size,patch_size,3))  , rand_mode)
 
-            #batch_input_low[patch_id, :, :, :] = batch_input_high[patch_id, :, :, :] + np.random.normal(0, 0.1, batch_input_high.shape)
             image_id = (image_id + 1) % len(train_restoration_low_r_data)
             if image_id == 0:
                 tmp = list(zip(train_restoration_low_r_data, train_restoration_low_i_data, train_restoration_high_r_data))
@@ -232,9 +226,7 @@ for epoch in range(start_epoch, epoch):
               % (train_phase, epoch + 1, batch_id + 1, numBatch, time.time() - start_time, loss))
         iter_num += 1
     if (epoch + 1) % eval_every_epoch == 0:
-        #self.evaluate(epoch + 1, eval_low_data, sample_dir=sample_dir, train_phase=train_phase)
         print("[*] Evaluating for phase %s / epoch %d..." % (train_phase, epoch + 1))
-        
         for idx in range(len(eval_restoration_low_r_data)):
             input_uu_r = eval_restoration_low_r_data[idx] 
             input_low_eval_r = np.expand_dims(input_uu_r, axis=0)
@@ -244,8 +236,7 @@ for epoch in range(start_epoch, epoch):
             result_1 = sess.run(output_r, feed_dict={input_low_r: input_low_eval_r, input_low_i: input_low_eval_ii})
 
             save_images(os.path.join(sample_dir, 'eval_%d_%d.png' % ( idx + 1, epoch + 1)), input_uu_r, result_1)
-        
-    saver.save(sess, checkpoint_dir + 'model.ckpt', global_step=epoch)
+        saver.save(sess, checkpoint_dir + 'model.ckpt', global_step=epoch)
 
 print("[*] Finish training for phase %s." % train_phase)
 
