@@ -4,6 +4,9 @@ This is a Tensorflow implementation of KinD
 Kindling the Darkness: a Practical Low-light Image Enhancer. In ACMMM2019<br>
 Yonghua Zhang, Jiawan Zhang, Xiaojie Guo
 
+<img src="figures/networkv3.png" width=800px"/>
+
+<img src="figures/mm_fig1.png" width=800px"/>
 ### Requirements ###
 1. Python
 2. Tensorflow >= 1.10.0
