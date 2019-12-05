@@ -27,6 +27,7 @@ python evalate_LOLdataset.py
 ```
 
 ### Citation ###
+```
 @inproceedings{zhang2019kindling,
   title="Kindling the Darkness: A Practical Low-light Image Enhancer.",
   author="Yonghua {Zhang} and Jiawan {Zhang} and Xiaojie {Guo}",
@@ -35,3 +36,4 @@ python evalate_LOLdataset.py
   url="https://academic.microsoft.com/paper/2981718299",
   year="2019"
 }
+```
