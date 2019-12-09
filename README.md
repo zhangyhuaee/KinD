@@ -18,6 +18,8 @@ First download the pre-trained checkpoints from [here](https://pan.baidu.com/s/1
 ```shell
 python evaluate.py
 ```
+Our pre-trained model has changed. Thus, the results have some difference with the report in our paper. However, you can adjust the illumination ratio to get better results.
+
 ### Train ###
 Please download the [LOLdataset](https://daooshee.github.io/BMVC2018website/). Save training pairs of LOL dataset under './LOLdataset/our485/' and save evaluating pairs under './LOLdataset/eval15/'. For training, just run
 ```shell
