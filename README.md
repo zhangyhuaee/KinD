@@ -1,6 +1,8 @@
 # KinD
 This is a Tensorflow implementation of KinD
 
+The [KinD++](https://github.com/zhangyhuaee/KinD_plus) is a improved version.
+
 Kindling the Darkness: a Practical Low-light Image Enhancer. In ACMMM2019<br>
 Yonghua Zhang, Jiawan Zhang, Xiaojie Guo
 
