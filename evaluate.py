@@ -9,6 +9,7 @@ import numpy as np
 from utils import *
 from model import *
 from glob import glob
+from skimage import color,filters
 
 sess = tf.Session()
 
@@ -94,9 +95,20 @@ for idx in range(len(eval_low_data)):
     i_low_ratio_expand2 = np.expand_dims(i_low_ratio_expand, axis=0)
     adjust_i = sess.run(output_i, feed_dict={input_low_i: decom_i_low, input_low_i_ratio: i_low_ratio_expand2})
 
-    fusion = restoration_r*adjust_i
+    #The restoration result can find more details from very dark regions, however, it will restore the very dark regions
+#with gray colors, we use the following operator to alleviate this weakness.  
+    decom_r_sq = np.squeeze(decom_r_low)
+    r_gray = color.rgb2gray(decom_r_sq)
+    r_gray_gaussion = filters.gaussian(r_gray, 3)
+    low_i =  np.minimum((r_gray_gaussion*2)**0.5,1)
+    low_i_expand_0 = np.expand_dims(low_i, axis = 0)
+    low_i_expand_3 = np.expand_dims(low_i_expand_0, axis = 3)
+    result_denoise = restoration_r*low_i_expand_3
+    fusion4 = result_denoise*adjust_i
+    
+    #fusion = restoration_r*adjust_i
 # fusion with the original input to avoid over-exposure
-    fusion2 = decom_i_low*input_low_eval + (1-decom_i_low)*fusion
-    print(fusion2.shape)
+    fusion2 = decom_i_low*input_low_eval + (1-decom_i_low)*fusion4
+    #print(fusion2.shape)
     save_images(os.path.join(sample_dir, '%s_kindle.png' % (name)), fusion2)
     
