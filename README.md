@@ -11,9 +11,10 @@ Yonghua Zhang, Jiawan Zhang, Xiaojie Guo
 
 <img src="figures/result.jpg" width="800px"/>
 
+To better adapt to TensorFlow 2.0, we modified our code.Now you can run this code directly using TensorFlow 2.0.
 ### Requirements ###
 1. Python
-2. Tensorflow >= 1.10.0
+2. Tensorflow >= 2.0
 3. numpy, PIL
 
 ### Test ###
