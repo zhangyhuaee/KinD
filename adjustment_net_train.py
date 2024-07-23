@@ -5,7 +5,9 @@ import time
 import random
 #from skimage import color
 from PIL import Image
-import tensorflow as tf
+#import tensorflow as tf
+import tensorflow.compat.v1 as tf
+tf.disable_v2_behavior()
 import numpy as np
 from utils import *
 from model import *
@@ -73,7 +75,7 @@ for idx in range(len(train_low_data_names)):
     high_im = load_images(train_high_data_names[idx])
     train_high_data.append(high_im)
 
-pre_decom_checkpoint_dir = './checkpoint/decom_net_train/'
+pre_decom_checkpoint_dir = './checkpoint/decom_net_retrain/'
 ckpt_pre=tf.train.get_checkpoint_state(pre_decom_checkpoint_dir)
 if ckpt_pre:
     print('loaded '+ckpt_pre.model_checkpoint_path)
@@ -119,7 +121,7 @@ train_op = train_op_adjust
 train_loss = loss_adjust
 saver = saver_adjust
 
-checkpoint_dir = './checkpoint/illumination_adjust_net_train/'
+checkpoint_dir = './checkpoint/illumination_adjust_net_retrain/'
 if not os.path.isdir(checkpoint_dir):
     os.makedirs(checkpoint_dir)
 ckpt=tf.train.get_checkpoint_state(checkpoint_dir)

@@ -4,7 +4,9 @@ import os
 import time
 import random
 from PIL import Image
-import tensorflow as tf
+#import tensorflow as tf
+import tensorflow.compat.v1 as tf
+tf.disable_v2_behavior()
 import numpy as np
 from utils import *
 from model import *
@@ -60,7 +62,7 @@ else:
 ###load eval data
 eval_low_data = []
 eval_img_name =[]
-eval_low_data_name = glob('./LOLdataset/eval15/low/*.png')
+eval_low_data_name = glob('./test/eval15/low/*.png')
 eval_low_data_name.sort()
 for idx in range(len(eval_low_data_name)):
     [_, name] = os.path.split(eval_low_data_name[idx])
@@ -72,7 +74,7 @@ for idx in range(len(eval_low_data_name)):
     print(eval_low_im.shape)
 # To get better results, the illumination adjustment ratio is computed based on the decom_i_high, so we also need the high data.
 eval_high_data = []
-eval_high_data_name = glob('./LOLdataset/eval15/high/*.png')
+eval_high_data_name = glob('./test/eval15/high/*.png')
 eval_high_data_name.sort()
 for idx in range(len(eval_high_data_name)):
     eval_high_im = load_images(eval_high_data_name[idx])

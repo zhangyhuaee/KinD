@@ -4,7 +4,9 @@ import os
 import time
 import random
 from PIL import Image
-import tensorflow as tf
+#import tensorflow as tf
+import tensorflow.compat.v1 as tf
+tf.disable_v2_behavior()
 import numpy as np
 from utils import *
 from model import *
@@ -101,7 +103,7 @@ for idx in range(len(eval_low_data_names)):
     eval_low_im = load_images(eval_low_data_names[idx])
     eval_low_data.append(eval_low_im)
 
-pre_decom_checkpoint_dir = './checkpoint/decom_net_train/'
+pre_decom_checkpoint_dir = './checkpoint/decom_net_retrain/'
 ckpt_pre=tf.train.get_checkpoint_state(pre_decom_checkpoint_dir)
 if ckpt_pre:
     print('loaded '+ckpt_pre.model_checkpoint_path)
@@ -179,7 +181,7 @@ train_op = train_op_restoration
 train_loss = loss_restoration
 saver = saver_restoration
 
-checkpoint_dir = './checkpoint/Restoration_net_train/'
+checkpoint_dir = './checkpoint/Restoration_net_retrain/'
 if not os.path.isdir(checkpoint_dir):
     os.makedirs(checkpoint_dir)
 ckpt=tf.train.get_checkpoint_state(checkpoint_dir)

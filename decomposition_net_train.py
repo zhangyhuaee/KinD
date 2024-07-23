@@ -1,7 +1,9 @@
 # coding: utf-8
 from __future__ import print_function
 import os, time, random
-import tensorflow as tf
+#import tensorflow as tf
+import tensorflow.compat.v1 as tf
+tf.disable_v2_behavior()
 from PIL import Image
 import numpy as np
 from utils import *
@@ -120,7 +122,7 @@ train_op = train_op_Decom
 train_loss = loss_Decom
 saver = saver_Decom
 
-checkpoint_dir = './checkpoint/decom_net_train/'
+checkpoint_dir = './checkpoint/decom_net_retrain/'
 if not os.path.isdir(checkpoint_dir):
     os.makedirs(checkpoint_dir)
 ckpt=tf.train.get_checkpoint_state(checkpoint_dir)

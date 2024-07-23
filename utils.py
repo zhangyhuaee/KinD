@@ -1,6 +1,8 @@
 import numpy as np
 from PIL import Image
-import tensorflow as tf
+#import tensorflow as tf
+import tensorflow.compat.v1 as tf
+tf.disable_v2_behavior()
 import scipy.stats as st
 from skimage import io,data,color
 from functools import reduce
